@@ -1,5 +1,8 @@
 class Solution {
     public List<Integer> findSubstring(String s, String[] words) {
+        if (s == null || words == null || s.length() == 0 || words.length == 0) {
+            return new ArrayList<>();
+        }
         Map<String, Integer> map = new HashMap<>();
         for(String word : words){
             map.put(word, map.getOrDefault(word,0)+1);
