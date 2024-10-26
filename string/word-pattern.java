@@ -5,7 +5,11 @@ class Solution {
         if (array.length!= pattern.length()) return false;
 
         for(int i = 0; i < pattern.length();i++){
-            if(!map.containsKey(pattern.charAt(i))) map.put(pattern.charAt(i), array[i]);
+            if(!map.containsKey(pattern.charAt(i))) {
+                if(map.containsValue(array[i])) return false; 
+                map.put(pattern.charAt(i), array[i]);   
+            }
+            
             else if(!map.get(pattern.charAt(i)).equals(array[i])) return false;
         }
         return true;
