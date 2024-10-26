@@ -2,7 +2,7 @@ class Solution {
     public boolean isIsomorphic(String s, String t) {
         Map<Character, Integer> smap = new HashMap<>();
         Map<Character, Integer> tmap = new HashMap<>();
-        for(int i = 0; i< s.length;i++){
+        for(int i = 0; i< s.length();i++){
             if(!smap.containsKey(s.charAt(i))){
                 smap.put(s.charAt(i),i);
             }
