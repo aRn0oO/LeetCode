@@ -9,7 +9,7 @@ class Solution {
             if(!tmap.containsKey(t.charAt(i))){
                 tmap.put(t.charAt(i),i);
             }
-            if(tmap.get(t.charAt(i).equals(smap.get(s.charAt(i))))) return false;
+            if(!tmap.get(t.charAt(i)).equals(smap.get(s.charAt(i)))) return false;
 
         }
         return true;
