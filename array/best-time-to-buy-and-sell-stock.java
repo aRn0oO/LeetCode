@@ -5,8 +5,7 @@ class Solution {
         for(int i= 1;i< prices.length;i++){
             if(i<buy ){
                 buy = prices[i];
-            }
-            if((prices[i]-buy)>profit){
+            }else if((prices[i]-buy)>profit){
                 profit = prices[i]-buy;
             }
         }
