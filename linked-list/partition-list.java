@@ -24,7 +24,7 @@ class Solution {
             }
             head = head.next;
         }
-        sec.next = null;// terminate the greater list
+        secTail.next = null;// terminate the greater list
         tail.next = sec.next;
 
         return dummy.next;
