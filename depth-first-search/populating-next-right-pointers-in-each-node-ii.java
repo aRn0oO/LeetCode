@@ -23,8 +23,8 @@ class Node {
 
 class Solution {
     public Node connect(Node root) {
-        Node dummy = new Node(0);
-        Node pre = dummy;
+        Node dummy = new Node(0);// will point to each layer
+        Node pre = dummy;// Node that move to build layer
         Node res = root;
 
         while(root!= null){
@@ -39,7 +39,7 @@ class Solution {
             root = root.next;
             if(root== null){
                 pre = dummy;
-                root = dummy.next;
+                root = dummy.next; // move to the next layer
                 dummy.next = null;
             }
         }
