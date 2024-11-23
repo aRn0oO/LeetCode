@@ -4,72 +4,74 @@ class LRUCache {
         int val;
         Node prev;
         Node next;
-
         Node(int key, int val){
             this.key = key;
             this.val = val;
         }
     }
+    int cap;
     Node head = new Node(-1,-1);
     Node tail = new Node(-1,-1);
-    int cap;
-    Map<Integer, Node> m = new HashMap<>();
+    Map <Integer, Node> m = new HashMap<>();
 
-    private void addNode(Node newnode){
-        Node temp = head.next;//store next node from head
+    private void addNode(Node n){
+        Node temp = head.next;
+
+        head.next = n;//
+        n.next = temp;
         
-        newnode.next = temp;
-        newnode.prev = head;
-
-        head.next = newnode;
-        temp.prev = newnode;
+        temp.prev = n;
+        n.prev = head;
     }
 
-    private void delNode(Node delnode){
-        Node prevv = delnode.prev;
-        Node nextt = delnode.next;
-
+    private void delNode(Node n){
+        Node prevv = n.prev;
+        Node nextt = n.next;
+        nextt. prev = prevv;
         prevv.next = nextt;
-        nextt.prev = prevv;
     }
 
 
     public LRUCache(int capacity) {
         cap = capacity;
         head.next = tail;
-        tail.prev = head; //remember to connect head &tail
-        
+        tail.prev = head;
     }
     
     public int get(int key) {
         if(m.containsKey(key)){
-            Node resNode = m.get(key);
-            int ans = resNode.val;
-
-            m.remove(key);
+            Node resNode =m.get(key);
+            int res = resNode.val;
+           
             delNode(resNode);
+            m.remove(key);
+
             addNode(resNode);
 
+
             m.put(key, head.next);
-            return ans;
+            return res;
         }
         return -1;
+        
     }
     
     public void put(int key, int value) {
         if(m.containsKey(key)){
-            Node cur = m.get(key);
+            Node curr = m.get(key);
+
             m.remove(key);
-            delNode(cur);
-            
+            delNode(curr);
         }
-        if(m.size() == cap){
-            m.remove(tail.prev.key);
+        if(m.size()== cap){
+            m.remove(tail.prev.key);            
             delNode(tail.prev);
+
         }
-         
-        addNode(new Node(key,value));
-        m.put(key, head.next);
+
+        Node newNode = new Node (key, value);
+        addNode(newNode);
+        m.put(key, newNode);
     }
 }
 
