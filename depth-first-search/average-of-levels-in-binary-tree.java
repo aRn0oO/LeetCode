@@ -13,7 +13,7 @@
  *     }
  * }
  */
-class Solution {
+
     
 class Solution {
     public List<Double> averageOfLevels(TreeNode root) {
@@ -31,7 +31,4 @@ class Solution {
         }
         return ans;
     }
-}
-
-    
 }
