@@ -2,7 +2,7 @@ class Solution {
     public List<String> letterCombinations(String digits) {
         if (digits.isEmpty()) return Collections.emptyList();
 
-        
+        String[] phone_map = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         List<String> output = new ArrayList<>();
         backtrack("", digits, phone_map, output);
         return output;
