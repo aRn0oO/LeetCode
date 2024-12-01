@@ -1,21 +1,34 @@
 class Solution {
-    public List<String> letterCombinations(String digits) {
-        if (digits.isEmpty()) return Collections.emptyList();
 
-        String[] phone_map = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-        List<String> output = new ArrayList<>();
-        backtrack("", digits, phone_map, output);
+    public List<String> letterCombinations(String digits) {
+        Map<Character, String> map = new HashMap<Character, String>();
+        map.put('2', "abc");
+        map.put('3', "def");
+        map.put('4', "ghi");
+        map.put('5', "jkl");
+        map.put('6', "mno");
+        map.put('7', "pqrs");
+        map.put('8', "tuv");
+        map.put('9', "wxyz");
+
+        List<String> output = new ArrayList<String>();
+        if (digits.length()==0) return output;
+        StringBuilder sb = new StringBuilder();
+        solve(digits, 0, sb, output, map);
         return output;
     }
+    private void solve(String digits, int idx, StringBuilder sb, List<String> output, Map<Character, String> map) {
+        if (idx == digits.length()) {
+            output.add(sb.toString());
+            return;
+        }
 
-    private void backtrack(String combination, String next_digits, String[] phone_map, List<String> output) {
-        if (next_digits.isEmpty()) {
-            output.add(combination);
-        } else {
-            String letters = phone_map[next_digits.charAt(0) - '2'];
-            for (char letter : letters.toCharArray()) {
-                backtrack(combination + letter, next_digits.substring(1), phone_map, output);
-            }
+        char curr = digits.charAt(idx);
+        for (char c : map.get(curr).toCharArray()) {
+            sb.append(c);
+            solve(digits, idx+1, sb, output, map);
+            sb.deleteCharAt(sb.length()-1);
         }
     }
+
 }
