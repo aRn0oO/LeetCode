@@ -12,9 +12,10 @@ class Solution {
         map.put('M',1000);
 
         for(int i= 0; i<s.length()-1;i++){
-            if(map.get(s.charAt(i))< map.get(s.charAt(i+1))){
-                res -= map.get(s.charAt(i));
-            }else res += map.get(s.charAt(i));
+            int num = map.get(s.charAt(i));
+            if(num< map.get(s.charAt(i+1))){
+                res -=num;
+            }else res += num;
         }
         return res+ map.get(s.charAt(s.length()-1));
     }
