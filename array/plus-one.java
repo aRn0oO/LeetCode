@@ -8,8 +8,8 @@ class Solution {
             digits[i]=0;
         }
 
-        digit = new int[digits.legnth+1];
-        digit[0] = 1;
-        return digit;
+        digits = new int[digits.length+1];
+        digits[0] = 1;
+        return digits;
     }
 }
