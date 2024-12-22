@@ -8,6 +8,6 @@ class Solution {
             else if ((long) mid*mid > (long)x) r = mid -1;
             else l = mid +1;
         }
-        return l;
+        return Math.round(r);
     }
 }
