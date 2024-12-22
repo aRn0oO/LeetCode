@@ -6,8 +6,12 @@ class Solution {
 
         }else if(n ==0) return 1.0;
         double res = 1.0;
-        for(int i=0; i <n; i++){
-            res*=x;
+        while(n>0){
+            if(n%2 == 1){
+                res *=x;
+            }
+            x*= x;
+            n/=2;
         }
         return res;
     }
