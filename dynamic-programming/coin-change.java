@@ -1,12 +1,11 @@
 class Solution {
-    public int coinChange(int[] coins, int amount) {
-        if(amount< 0) return -1;
-        if( amount == 0) return 0;
-        int res = -1;
-        for(int i = 0; i<coins.length; i++){
-            int coin = coinChange( coins, amount- coins[i]);
-            if(coin>= 0) res = res<0? coin +1:Math.min(res,coin+1 );
-        }
-        return res;
+	public int coinChange(int[] coins, int amount) {
+        int[] dp=new int[amount+1];
+        Arrays.fill(dp,amount+1);
+        dp[0]=0;
+        for(int i=1;i<=amount;i++)
+            for(int c:coins)
+                if(i>=c) dp[i]=Math.min(dp[i],dp[i-c]+1);
+        return dp[amount]>amount?-1:dp[amount];
     }
 }
