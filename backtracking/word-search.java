@@ -15,6 +15,7 @@ class Solution {
         if( i>board.length-1|| i<0|| j < 0 || j >board[0].length-1|| board[i][j]!= words[index]) return false;
         board[i][j]= '*';
         boolean res = exist(board, words, i+1, j, index+1) ||exist(board, words, i-1, j, index+1) ||exist(board, words, i, j+1, index+1) ||exist(board, words, i, j-1, index+1);
+        board[i][j] = words[index];
         return res;
     }
 }
