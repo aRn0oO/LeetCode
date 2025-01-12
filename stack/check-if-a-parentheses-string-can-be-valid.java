@@ -13,7 +13,7 @@ class Solution {
         
         int close = 0;
         for(int i = n-1; i>=0;i--) {
-            if(s.charAt(i)=='('||locked.charAt(i)=='0') close++;
+            if(s.charAt(i)==')'||locked.charAt(i)=='0') close++;
             else close --;
             if(close< 0)return false;//
         }
