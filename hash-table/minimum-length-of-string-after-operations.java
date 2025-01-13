@@ -1,14 +1,18 @@
 class Solution {
     public int minimumLength(String s) {
-        HashMap<Character, Integer> count = new HashMap<>();
-        for (char c : s.toCharArray()) count.put(c, count.getOrDefault(c, 0) + 1);
-        int minus = 0;
-        for (int value : count.values()) {
-            while (value >= 3) {
-                minus += 2;
-                value -= 2;
+        int[] charFrequency = new int[26];
+        int totalLength = 0;
+        for (char c : s.toCharArray()) {
+            charFrequency[c - 'a']++;
+        }
+        for (int frequency : charFrequency) {
+            if (frequency == 0) continue;
+            if (frequency % 2 == 0) {
+                totalLength += 2;
+            } else {
+                totalLength += 1;
             }
         }
-        return s.length() - minus;
+        return totalLength;
     }
 }
