@@ -1,19 +1,19 @@
 class Solution {
     public int maxOperations(int[] nums, int k) {
-
+        Arrays.sort(nums);
         int count = 0;
-        for(int i = 0; i < nums.length; i ++){
-            if(nums[i]==-1)continue;
-            for (int j = i+1; j< nums.length; j++){
-                if(nums[j]==-1)continue;
-                if(nums[i]+nums[j] == k){
-                    count++;
-                    nums[i] = -1;
-                    nums[j] = -1;
-                    break;
-                }
+
+        int i = 0, j = nums.length-1;
+        while(i<j ){
+            int sum = nums[i]+nums[j];
+            if (sum> k) j --;
+            else if(sum< k) i++;
+            else{
+                count++;
+                i++;
+                j--;
             }
         }
-        return count;
+        return count; 
     }
 }
