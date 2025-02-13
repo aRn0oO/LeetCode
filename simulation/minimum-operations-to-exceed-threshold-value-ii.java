@@ -8,10 +8,10 @@ class Solution {
         while(!pq.isEmpty()){
             int x = pq.poll();
             count++;
-            if(pq.isEmpty()) return count; 
+            if(pq.isEmpty()) break; 
             int y = pq.poll();
-            int newVal = 2*x+y;
-            if(newVal<k)pq.add(newVal);
+            long newVal = 2L*x+y;
+            if(newVal<k)pq.add((int)newVal);
 
         }
         return count;
