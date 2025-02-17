@@ -1,3 +1,4 @@
+class Solution {
     public int numTilePossibilities(String tiles) {
         int[] count = new int[26];
         for (char c : tiles.toCharArray()) count[c - 'A']++;
@@ -15,3 +16,4 @@
         }
         return sum;
     }
+}
