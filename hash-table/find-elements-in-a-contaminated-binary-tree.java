@@ -18,20 +18,15 @@ class FindElements {
     Set<Integer> set = new HashSet<>();
 
     public FindElements(TreeNode root) {
-        if(val == 0){
-            root.val = val;
-            val =-1;
-            
-        }
-        root.left.val = root.val*2+1;
-        root.right.val = root.val*2+2;
-        set.add(root.val);
-        FindElements(root.left);
-        FindElements(root.left);
-        
+        dfs(root, 0);
 
-
-
+    }
+    private void dfs(TreeNode n, int v) {
+        if (n == null) return;
+        set.add(v);
+        n.val = v;
+        dfs(n.left, 2 * v + 1);
+        dfs(n.right, 2 * v + 2);
     }
     
     public boolean find(int target) {
