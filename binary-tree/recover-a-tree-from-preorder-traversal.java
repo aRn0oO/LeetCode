@@ -32,7 +32,7 @@ class Solution {
             int start = i;
             while(i < traversal.length() && traversal.charAt(i) != '-')
                 i++;
-            int val = Integer.parseInt(traversal.substring(start, i));
+            int val = traversal.substring(start, i)-'0';
             ptr = i;
             TreeNode root = new TreeNode(val);
             root.left = find(traversal, level + 1);
