@@ -13,6 +13,7 @@
  *     }
  * }
  */
+class Solution {
     public TreeNode recoverFromPreorder(String S) {
         int level, val;
         Stack<TreeNode> stack = new Stack<>();
@@ -41,3 +42,4 @@
         }
         return stack.pop();
     }
+}
