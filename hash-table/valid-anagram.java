@@ -7,8 +7,10 @@ class Solution {
         }
 
         for(Character c : t.toCharArray()){
-            if(!map.containsKey(c)) return false;
+            map.put(c, map.getOrDefault(c, 0)-1);
         }
+
+        for(int i:map.values()) if(i!= 0) return false;
         return true;
     }
 }
