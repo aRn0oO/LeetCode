@@ -26,9 +26,10 @@ class Solution {
 
         if(level == list.size()){
             List<Integer> re = new ArrayList<>();
-            re.add(node.val);
+            
             list.add(re);
-        }else list.get(level).add(node.val);
+        }
+        list.get(level).add(node.val);
 
         helper(list, level+1, node.left);
         helper(list, level+1, node.right);
