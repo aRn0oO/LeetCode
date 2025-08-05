@@ -15,20 +15,22 @@
  */
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<>();
-        helper(root, res, 0);
-        return res;
+        List<List<Integer>> list = new ArrayList<>();
+
+        helper(list, 0, root);
+        return list; 
     }
 
-    void helper(TreeNode root, List<List<Integer>>res, int level){
-        if(root == null) return;
-        if(level == res.size()){
-            List<Integer> re = new ArrayList<>();
-            re.add(root.val);
-            res.add(re);
-        }else res.get(level).add(root.val);
+    private void helper(List<List<Integer>> list, int level, TreeNode node){
+        if(node == null) return;
 
-        helper(root.left, res, level +1);
-        helper(root.right, res, level+1);
+        if(level == list.size()){
+            List<Integer> re = new ArrayList<>();
+            re.add(node.val);
+            list.add(re);
+        }else list.get(level).add(node.val);
+
+        helper(list, level+1, node.left);
+        helper(list, level+1, node.right);
     }
 }
