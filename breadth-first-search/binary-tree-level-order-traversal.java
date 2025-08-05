@@ -24,10 +24,8 @@ class Solution {
     private void helper(List<List<Integer>> list, int level, TreeNode node){
         if(node == null) return;
 
-        if(level == list.size()){
-            List<Integer> re = new ArrayList<>();
-            
-            list.add(re);
+        if(level == list.size()){         
+            list.add(new ArrayList<>());
         }
         list.get(level).add(node.val);
 
