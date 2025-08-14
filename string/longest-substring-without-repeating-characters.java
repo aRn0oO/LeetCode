@@ -1,27 +1,19 @@
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        if(s.length()<2) return s.length();
-        int maxLength = 0;
+        if (s == null || s.isEmpty()) return 0;
 
-        for(int i = 0; i < s.length(); i++){
-            int [] al = new int[256];
-            int curLength = 0;
-            for(int j = i; j< s.length();j++){
-                
-                if(al[s.charAt(j)]==0){
-                    al[s.charAt(j)]++;
-                    curLength++;
-                }
-                else {
-                    break;
-                }
-
-            }
-            maxLength = Math.max(curLength, maxLength);
-
-
+        Map<Character, Integer> map = new HashMap();
+        int ans = 0;
+        
+        for (int i = 0, start = 0; i < s.length(); i++) {
+            if (map.containsKey(s.charAt(i))) {
+                //this is needed to find the next index for consequent repeating chars e.g. abba
+                start = Math.max(map.get(s.charAt(i)), start);
+            } 
+            ans = Math.max(ans, ((i+1)-start));
+            map.put(s.charAt(i), i+1);
         }
-        return maxLength;
 
+        return ans;
     }
 }
