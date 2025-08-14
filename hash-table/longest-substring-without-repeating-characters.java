@@ -13,11 +13,11 @@ class Solution {
                     curLength++;
                 }
                 else {
-                    maxLength = Math.max(curLength, maxLength);
                     break;
                 }
 
             }
+            maxLength = Math.max(curLength, maxLength);
 
 
         }
