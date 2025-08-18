@@ -1,6 +1,6 @@
 class Solution {
     boolean res = false;   
-    double eqs = 0.001;
+    final double eqs = 0.001;
     public boolean judgePoint24(int[] cards) {
         List<Double> list = new ArrayList<>();    
 
@@ -26,8 +26,8 @@ class Solution {
                 Double p1 = list.get(i), p2 = list.get(j);
                 next.addAll(Arrays.asList(p1+p2, p1-p2, p2-p1, p1*p2));
 
-                if(Math.abs(p2) < eqs) next.add(p2/p1);
-                if(Math.abs(p1) < eqs) next.add(p1/p2);
+                if(Math.abs(p2) > eqs) next.add(p1/p2);
+                if(Math.abs(p1) > eqs) next.add(p2/p1);
                 
                 list.remove(i);
                 list.remove(j);
