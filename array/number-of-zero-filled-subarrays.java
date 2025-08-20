@@ -1,11 +1,10 @@
 class Solution {
     public long zeroFilledSubarray(int[] nums) {
-        int n = nums.length, res = 0;
-        int[] dp = new int[n+1];
+        int  res = 0, streak = 0;
 
-        for(int i = 0; i < n; i++){
-            if(nums[i]==0)dp[i+1]= dp[i]+1;
-            res+= dp[i+1];
+        for(int num: nums){
+            streak = (num ==0)? streak +1: 0;
+            res += streak;
         }
 
         return res;
