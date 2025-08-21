@@ -1,33 +1,26 @@
 class Solution {
+
     public int numSubmat(int[][] mat) {
-        int r = mat.length, c = mat[0].length;
-        int[] h = new int[c];
-        int ans = 0;
+        int m = mat.length, n = mat[0].length;
+        int res = 0;
+        int[][] row = new int[m][n];
 
-        for (int i = 0; i < r; i++) {
-            for (int j = 0; j < c; j++) {
-                h[j] = (mat[i][j] == 0) ? 0 : h[j] + 1;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (j == 0) {
+                    row[i][j] = mat[i][j];
+                } else {
+                    row[i][j] = mat[i][j] == 0 ? 0 : row[i][j - 1] + 1;
+                }
+                int cur = row[i][j];
+                for (int k = i; k >= 0; k--) {
+                    cur = Math.min(cur, row[k][j]);
+                    if (cur == 0) {
+                        break;
+                    }
+                    res += cur;
+                }
             }
-            ans += count(h);
-        }
-        return ans;
-    }
-
-    private int count(int[] h) {
-        int n = h.length, res = 0;
-        int[] sum = new int[n];
-        Deque<Integer> st = new ArrayDeque<>();
-
-        for (int i = 0; i < n; i++) {
-            while (!st.isEmpty() && h[st.peek()] >= h[i]) st.pop();
-            if (!st.isEmpty()) {
-                int p = st.peek();
-                sum[i] = sum[p] + h[i] * (i - p);
-            } else {
-                sum[i] = h[i] * (i + 1);
-            }
-            st.push(i);
-            res += sum[i];
         }
         return res;
     }
