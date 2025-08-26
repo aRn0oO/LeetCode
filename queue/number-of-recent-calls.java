@@ -1,19 +1,18 @@
 class RecentCounter {
-    int req;
-    Queue<Integer> q ;
+    final int [] record = new int[10000] ;
+    int start, end;
 
     public RecentCounter() {
-        req = 0;
-        q = new PriorityQueue<>();
+        start = 0;
+        end = 0;
     }
     
     public int ping(int t) {
-        q.add(t);
-        while(q.peek()< (t-3000)) q.remove();
+        while(start< end && (t-record[start])>3000) start++;
 
+        record[end++] = t;
 
-
-        return q.size();
+        return end -start;
     }
 }
 
