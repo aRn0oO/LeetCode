@@ -16,6 +16,7 @@
 class Solution {
     int ans = 0;
     public int minDepth(TreeNode root) {
+        if(root ==null) return 0;
         ans = Integer.MAX_VALUE;
         dfs(root, 1);
         return ans;
