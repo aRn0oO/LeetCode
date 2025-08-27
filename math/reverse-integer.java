@@ -1,13 +1,11 @@
 class Solution {
     public int reverse(int x) {
-        int reversed = 0;
-        while (x != 0) {
-            int digit = x % 10;
-            x /= 10;
-            if (reversed > Integer.MAX_VALUE / 10 || (reversed == Integer.MAX_VALUE / 10 && digit > 7)) return 0;
-            if (reversed < Integer.MIN_VALUE / 10 || (reversed == Integer.MIN_VALUE / 10 && digit < -8)) return 0;
-            reversed = reversed * 10 + digit;
-        }
-        return reversed;       
+        if(x<0) return -1*reverse(-1*x);
+        int res = 0;
+        String str = String.valueOf(x);
+        StringBuilder sb = new StringBuilder(str).reverse();
+        try {res = Integer.parseInt(sb.toString());}
+        catch(NumberFormatException e) {return 0;}
+        return res;
     }
 }
