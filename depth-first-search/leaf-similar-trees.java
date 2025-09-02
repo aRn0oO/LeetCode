@@ -20,12 +20,7 @@ class Solution {
         helper(root1, list1);
         helper(root2, list2); 
         return list1.equals(list2);
-        // if(list1.size()!=list2.size())return false;
-        // int n = list1.size();
-        // for(int i = 0; i<n;i++){
-        //     if(list1.get(i)!= list2.get(i)) return false;
-        // }
-        // return true;
+        
     }
 
     void helper(TreeNode root,List<Integer> list){
