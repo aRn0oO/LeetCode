@@ -28,6 +28,7 @@ class Solution {
     }
 
     void helper(TreeNode root,List<Integer> list){
+         if (root == null) return;
         if(root.left == null && root.right == null){
             list.add(root.val);
             return;
