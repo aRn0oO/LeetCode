@@ -1,17 +1,18 @@
 class Solution {
-    public int divide(int a, int b) {
-        if(a== 0)return 0;
-        if(a<0 && b< 0) return divide(-1*a, -1*b);
-        else if(a< 0&& b> 0) return -1*divide(-1*a, b);
-        else if(a> 0 && b< 0) return -1* divide(a,-1*b);
-
-
-        return helper(a,b);
+public int divide(int dividend, int divisor) {
+    boolean isNegative = (dividend < 0 && divisor > 0) || (dividend > 0 && divisor < 0) ? true : false;
+    long absDividend = Math.abs((long) dividend);
+    long absDivisor = Math.abs((long) divisor);
+    long result = 0;
+    while(absDividend >= absDivisor){
+        long tmp = absDivisor, count = 1;
+        while(tmp <= absDividend){
+            tmp <<= 1;
+            count <<= 1;
+        }
+        result += count >> 1;
+        absDividend -= tmp >> 1;
     }
-
-    int helper(int a, int b){
-        if(a<b) return 0;
-        return helper(a-b,b)+1;
-
-    }
+    return  isNegative ? (int) ~result + 1 : result > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) result;
+}
 }
