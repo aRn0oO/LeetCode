@@ -49,8 +49,9 @@ class TaskManager {
     }
     
     public int execTop() {  
-        Task t = manager.poll();
         if(manager.isEmpty()) return -1;
+        Task t = manager.poll();
+        
         map.remove(t.taskId);
         return t.userId;
 
