@@ -1,31 +1,28 @@
 public class Solution {
-public List<List<Integer>> fourSum(int[] num, int target) {
-    ArrayList<List<Integer>> ans = new ArrayList<>();
-    if(num.length<4)return ans;
-    Arrays.sort(num);
-    for(int i=0; i<num.length-3; i++){
-        if(num[i]+num[i+1]+num[i+2]+num[i+3]>target)break; //first candidate too large, search finished
-        if(num[i]+num[num.length-1]+num[num.length-2]+num[num.length-3]<target)continue; //first candidate too small
-        if(i>0&&num[i]==num[i-1])continue; //prevents duplicate result in ans list
-        for(int j=i+1; j<num.length-2; j++){
-            if(num[i]+num[j]+num[j+1]+num[j+2]>target)break; //second candidate too large
-            if(num[i]+num[j]+num[num.length-1]+num[num.length-2]<target)continue; //second candidate too small
-            if(j>i+1&&num[j]==num[j-1])continue; //prevents duplicate results in ans list
-            int low=j+1, high=num.length-1;
-            while(low<high){
-                int sum=num[i]+num[j]+num[low]+num[high];
-                if(sum==target){
-                    ans.add(Arrays.asList(num[i], num[j], num[low], num[high]));
-                    while(low<high&&num[low]==num[low+1])low++; //skipping over duplicate on low
-                    while(low<high&&num[high]==num[high-1])high--; //skipping over duplicate on high
-                    low++; 
-                    high--;
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
+        Arrays.sort(nums);
+        int second = 0, third = 0, nexti = 0, nextj = 0;
+        for(int i=0, L=nums.length; i<L-3; i++) {
+            if(nums[i]<<2 > target) return list; // return immediately
+            for(int j=L-1; j>i+2; j--) {
+                if(nums[j]<<2 < target) break; // break immediately
+                int rem = target-nums[i]-nums[j];
+                int lo = i+1, hi=j-1;
+                while(lo<hi) {
+                    int sum = nums[lo] + nums[hi];
+                    if(sum>rem) --hi;
+                    else if(sum<rem) ++lo;
+                    else {
+                        list.add(Arrays.asList(nums[i],nums[lo],nums[hi],nums[j]));
+                        while(++lo<=hi && nums[lo-1]==nums[lo]) continue; // avoid duplicate results
+                        while(--hi>=lo && nums[hi]==nums[hi+1]) continue; // avoid duplicate results
+                    }
                 }
-                //move window
-                else if(sum<target)low++; 
-                else high--;
+                while(j>=1 && nums[j]==nums[j-1]) --j; // skip inner loop
             }
+            while(i<L-1 && nums[i]==nums[i+1]) ++i; // skip outer loop
         }
+        return list;
     }
-    return ans;
-}}
+}
