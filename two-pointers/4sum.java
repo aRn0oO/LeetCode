@@ -1,54 +1,40 @@
-    public class Solution {
-        int len = 0;
-        public List<List<Integer>> fourSum(int[] nums, int target) {
-            len = nums.length;
-            Arrays.sort(nums);
-            return kSum(nums, target, 4, 0);
-        }
-       private ArrayList<List<Integer>> kSum(int[] nums, int target, int k, int index) {
-            ArrayList<List<Integer>> res = new ArrayList<List<Integer>>();
-            if(index >= len) {
-                return res;
-            }
-            if(k == 2) {
-            	int i = index, j = len - 1;
-            	while(i < j) {
-                    //find a pair
-            	    if(target - nums[i] == nums[j]) {
-            	    	List<Integer> temp = new ArrayList<>();
-                    	temp.add(nums[i]);
-                    	temp.add(target-nums[i]);
-                        res.add(temp);
-                        //skip duplication
-                        while(i<j && nums[i]==nums[i+1]) i++;
-                        while(i<j && nums[j-1]==nums[j]) j--;
-                        i++;
-                        j--;
-                    //move left bound
-            	    } else if (target - nums[i] > nums[j]) {
-            	        i++;
-                    //move right bound
-            	    } else {
-            	        j--;
-            	    }
-            	}
-            } else{
-                for (int i = index; i < len - k + 1; i++) {
-                    //use current number to reduce ksum into k-1sum
-                    ArrayList<List<Integer>> temp = kSum(nums, target - nums[i], k-1, i+1);
-                    if(temp != null){
-                        //add previous results
-                        for (List<Integer> t : temp) {
-                            t.add(0, nums[i]);
-                        }
-                        res.addAll(temp);
-                    }
-                    while (i < len-1 && nums[i] == nums[i+1]) {
-                        //skip duplicated numbers
-                        i++;
-                    }
+class Solution {
+   public List<List<Integer>> fourSum(int[] nums, int target) {
+        Arrays.sort(nums);
+        return kSum(nums, 0, 4, target);
+    }
+    private List<List<Integer>> kSum (int[] nums, int start, int k, int target) {
+        int len = nums.length;
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(k == 2) { //two pointers from left and right
+            int left = start, right = len - 1;
+            while(left < right) {
+                int sum = nums[left] + nums[right];
+                if(sum == target) {
+                    List<Integer> path = new ArrayList<Integer>();
+                    path.add(nums[left]);
+                    path.add(nums[right]);
+                    res.add(path);
+                    while(left < right && nums[left] == nums[left + 1]) left++;
+                    while(left < right && nums[right] == nums[right - 1]) right--;
+                    left++;
+                    right--;
+                } else if (sum < target) { //move left
+                    left++;
+                } else { //move right
+                    right--;
                 }
             }
-            return res;
+        } else {
+            for(int i = start; i < len - (k - 1); i++) {
+                if(i > start && nums[i] == nums[i - 1]) continue;
+                List<List<Integer>> temp = kSum(nums, i + 1, k - 1, target - nums[i]);
+                for(List<Integer> t : temp) {
+                   t.add(0, nums[i]);
+                }                    
+                res.addAll(temp);
+            }
         }
+        return res;
     }
+}
