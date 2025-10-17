@@ -1,28 +1,51 @@
-public class Solution {
+import java.util.*;
+
+class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
-        List<List<Integer>> list = new ArrayList<List<Integer>>();
         Arrays.sort(nums);
-        int second = 0, third = 0, nexti = 0, nextj = 0;
-        for(int i=0, L=nums.length; i<L-3; i++) {
-            if(nums[i]<<2 > target) return list; // return immediately
-            for(int j=L-1; j>i+2; j--) {
-                if(nums[j]<<2 < target) break; // break immediately
-                int rem = target-nums[i]-nums[j];
-                int lo = i+1, hi=j-1;
-                while(lo<hi) {
-                    int sum = nums[lo] + nums[hi];
-                    if(sum>rem) --hi;
-                    else if(sum<rem) ++lo;
-                    else {
-                        list.add(Arrays.asList(nums[i],nums[lo],nums[hi],nums[j]));
-                        while(++lo<=hi && nums[lo-1]==nums[lo]) continue; // avoid duplicate results
-                        while(--hi>=lo && nums[hi]==nums[hi+1]) continue; // avoid duplicate results
-                    }
-                }
-                while(j>=1 && nums[j]==nums[j-1]) --j; // skip inner loop
-            }
-            while(i<L-1 && nums[i]==nums[i+1]) ++i; // skip outer loop
+        return kSum(nums, 0, 4, (long) target);
+    }
+
+    private List<List<Integer>> kSum(int[] nums, int start, int k, long target) {
+        int n = nums.length;
+        List<List<Integer>> res = new ArrayList<>();
+        if (start >= n || k < 2) return res;
+
+        // --- PRUNING: compute min and max possible sum with k numbers ---
+        long min = 0L, max = 0L;
+        for (int i = 0; i < k; i++) {
+            if (start + i >= n || n - 1 - i < 0) return res; // safety
+            min += nums[start + i];
+            max += nums[n - 1 - i];
         }
-        return list;
+        if (target < min || target > max) return res;
+
+        if (k == 2) {
+            int l = start, r = n - 1;
+            while (l < r) {
+                long sum = (long) nums[l] + nums[r];
+                if (sum < target) {
+                    l++;
+                } else if (sum > target) {
+                    r--;
+                } else {
+                    res.add(Arrays.asList(nums[l], nums[r]));
+                    int a = nums[l], b = nums[r];
+                    while (l < r && nums[l] == a) l++;  // skip dups
+                    while (l < r && nums[r] == b) r--;  // skip dups
+                }
+            }
+            return res;
+        }
+
+        for (int i = start; i <= n - k; i++) {
+            if (i > start && nums[i] == nums[i - 1]) continue; // dedupe
+            long newTarget = target - nums[i];
+            for (List<Integer> tail : kSum(nums, i + 1, k - 1, newTarget)) {
+                tail.add(0, nums[i]);
+                res.add(tail);
+            }
+        }
+        return res;
     }
 }
