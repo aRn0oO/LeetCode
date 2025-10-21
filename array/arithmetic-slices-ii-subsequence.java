@@ -7,12 +7,10 @@ class Solution {
             map[i] = new HashMap<>(i);
                 
             for (int j = 0; j < i; j++) {
-                // long diff = (long)A[i] - A[j];
-                // if (diff <= Integer.MIN_VALUE || diff > Integer.MAX_VALUE) continue;
+                long diff = (long)A[i] - A[j];
+                if (diff <= Integer.MIN_VALUE || diff > Integer.MAX_VALUE) continue;
                     
-                // int d = (int)diff;
-
-                int d = A[i] - A[j];
+                int d = (int)diff;
                 int c1 = map[i].getOrDefault(d, 0);
                 int c2 = map[j].getOrDefault(d, 0);
                 res += c2;
