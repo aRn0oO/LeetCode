@@ -1,23 +1,30 @@
 class Solution {
-    public int numberOfArithmeticSlices(int[] A) {
-        int res = 0;
-        Map<Integer, Integer>[] map = new Map[A.length];
-            
-        for (int i = 0; i < A.length; i++) {
-            map[i] = new HashMap<>(i);
-                
-            for (int j = 0; j < i; j++) {
-                long diff = (long)A[i] - A[j];
-                if (diff <= Integer.MIN_VALUE || diff > Integer.MAX_VALUE) continue;
-                    
-                int d = (int)diff;
-                int c1 = map[i].getOrDefault(d, 0);
-                int c2 = map[j].getOrDefault(d, 0);
-                res += c2;
-                map[i].put(d, c1 + c2 + 1);
+    public int numberOfArithmeticSlices(int[] nums) 
+    {
+        HashMap<Long,List<Integer>> q1=new HashMap<>();
+        int n=nums.length;
+        if(n<3) return 0;
+        for(int i=0;i<n;i++){
+            long x=nums[i];
+            q1.computeIfAbsent(x,k->new ArrayList<>()).add(i);
+        }
+        int[][] dp=new int[n][n];
+        int res=0;
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                long prev=2L*nums[i]-nums[j];
+                if(prev<Integer.MIN_VALUE||prev>Integer.MAX_VALUE)continue;
+                if(q1.containsKey(prev)){
+                    for(int it: q1.get(prev)){
+                        if(it<i)
+                        dp[i][j]+=dp[it][i]+1;
+                        else
+                        break;
+                    }
+                }
+                res+=dp[i][j];
             }
         }
-            
         return res;
     }
 }
