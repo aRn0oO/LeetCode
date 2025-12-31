@@ -1,7 +1,7 @@
 # Write your MySQL query statement below
 SELECT
-    firstName, lastName, city, state
+    a.firstName, a.lastName, b.city, b.state
 FROM
-    Person 
-left JOIN Address
-    ON Person.personId = address.personId
+    Person a
+left JOIN Address b
+    ON a.personId = b.personId
